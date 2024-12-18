@@ -25,7 +25,7 @@ public class User {
 	//Creating the attributes
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int idUser;
+	int id;
 	
 	@Column(name = "email", nullable = false, unique = true)
 	@NotNull(message = "The email is obligatory")
