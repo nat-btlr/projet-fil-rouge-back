@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import fr.filrougeback.model.Like;
 
-public interface LikeRepository extends CrudRepository<Like, Long>{
-	boolean existsByIdUserAndIdVideo(Long idUser, Long idVideo);
-    long countByIdVideo(Long idVideo);
+public interface LikeRepository extends CrudRepository<Like, Integer>{
+	boolean existsByIdUserAndIdVideo(Integer idUser, Integer idVideo);
+    long countByIdVideo(Integer idVideo);
 }

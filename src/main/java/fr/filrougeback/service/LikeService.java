@@ -14,7 +14,7 @@ public class LikeService {
     }
 
     // Method for adding a like
-    public boolean addLike(Long idUser, Long idVideo) {
+    public boolean addLike(Integer idUser, Integer idVideo) {
         if (!likeRepository.existsByIdUserAndIdVideo(idUser, idVideo)) {
             likeRepository.save(new Like(idUser, idVideo));
             return true;
@@ -23,7 +23,7 @@ public class LikeService {
     }
 
     // Method for counting likes
-    public long countLikes(Long idVideo) {
+    public long countLikes(Integer idVideo) {
         return likeRepository.countByIdVideo(idVideo);
     }
 }

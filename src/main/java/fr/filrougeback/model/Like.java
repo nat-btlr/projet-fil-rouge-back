@@ -16,16 +16,16 @@ public class Like {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idLike;
+    private int idLike;
 
     @Column(nullable = false)
-    private Long idUser;
+    private int idUser;
 
     @Column(nullable = false)
-    private Long idVideo;
+    private int idVideo;
 
     // Constructors
-    public Like(Long idUser, Long idVideo) {
+    public Like(int idUser, int idVideo) {
         this.idUser = idUser;
         this.idVideo = idVideo;
     }

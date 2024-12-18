@@ -30,7 +30,7 @@ public class LikeController {
 	}
 	
 	@GetMapping("/{videoId}")
-	public ResponseEntity<Long> getLikeCount(@PathVariable Long videoId) {
+	public ResponseEntity<Long> getLikeCount(@PathVariable Integer videoId) {
 		long count = likeService.countLikes(videoId);
 		return ResponseEntity.ok(count);
 	}

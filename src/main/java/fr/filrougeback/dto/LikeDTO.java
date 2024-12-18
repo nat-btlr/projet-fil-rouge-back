@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LikeDTO {
-	private Long userId;
-    private Long videoId;
+	private Integer userId;
+    private Integer videoId;
 }
