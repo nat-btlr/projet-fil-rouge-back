@@ -1,5 +1,6 @@
 package fr.filrougeback.service;
 
+import fr.filrougeback.dto.VideoDTO;
 import fr.filrougeback.model.Video;
 import fr.filrougeback.model.VideoCategory;
 import fr.filrougeback.repository.VideoRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class VideoService {
@@ -39,7 +41,7 @@ public class VideoService {
 				String title = record.get("title");
 				String description = record.get("description");
 
-				// Преобразуем строку из CSV в enum
+				// Transforming a field from the CSV into ENUM
 				VideoCategory category;
 				try {
 					category = VideoCategory.valueOf(record.get("category").toUpperCase());
@@ -61,4 +63,10 @@ public class VideoService {
 			}
 		}
 	}
+	/* Retrieving videos for a specific category */
+	public List<VideoDTO> getVideosByCategory(VideoCategory category) {
+		List<Video> videos = videoRepository.findByCategory(category);
+		return VideoDTO.toDtoList(videos);
+	}
+
 }

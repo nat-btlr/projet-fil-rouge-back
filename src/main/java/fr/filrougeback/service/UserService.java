@@ -1,12 +1,10 @@
 package fr.filrougeback.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import fr.filrougeback.dto.UserDTO;
 import fr.filrougeback.model.User;
 import fr.filrougeback.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -38,14 +36,6 @@ public class UserService {
     
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
-    }
-    
-    public UserDTO findUserDTOByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user != null) {
-            return UserDTO.fromEntity(user);
-        }
-        return null;
     }
     
     @Transactional
