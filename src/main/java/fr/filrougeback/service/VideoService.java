@@ -17,6 +17,7 @@ import java.util.List;
 
 @Service
 public class VideoService {
+
 	@Autowired
 	private VideoRepository videoRepository;
 
@@ -36,12 +37,13 @@ public class VideoService {
 	public void importVideosFromCsv(InputStream csvFile) throws IOException {
 		try (Reader reader = new InputStreamReader(csvFile);
 			 CSVParser csvParser = new CSVParser(reader, CSVFormat.TDF.withFirstRecordAsHeader())) {
+
 			for (CSVRecord record : csvParser) {
 				String fileName = record.get("file_name");
 				String title = record.get("title");
 				String description = record.get("description");
 
-				// Transforming a field from the CSV into ENUM
+				// Changing a category into ENUM
 				VideoCategory category;
 				try {
 					category = VideoCategory.valueOf(record.get("category").toUpperCase());
@@ -52,21 +54,29 @@ public class VideoService {
 					);
 				}
 
-				// Creating an object Video and saving it in the DB
+				// Generating a URL using BackBlaze
+				String url = backBlazeService.getFileUrl(fileName);
+
+				// Checking if the video exists
+				if (videoRepository.existsByUrl(url)) {
+					continue;
+				}
+
+				// Creating and saving a new video
 				Video video = new Video();
 				video.setTitle(title);
 				video.setDescription(description);
-				video.setUrl(backBlazeService.getFileUrl(fileName));
+				video.setUrl(url);
 				video.setCategory(category);
 
 				videoRepository.save(video);
 			}
 		}
 	}
-	/* Retrieving videos for a specific category */
+
+	// Getting videos by category
 	public List<VideoDTO> getVideosByCategory(VideoCategory category) {
 		List<Video> videos = videoRepository.findByCategory(category);
 		return VideoDTO.toDtoList(videos);
 	}
-
 }

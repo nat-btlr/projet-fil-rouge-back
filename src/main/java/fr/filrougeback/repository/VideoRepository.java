@@ -12,4 +12,6 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
 	void deleteById(Integer idVideo);
 
 	List<Video> findByCategory(VideoCategory category);
+
+	boolean existsByUrl(String url);
 }

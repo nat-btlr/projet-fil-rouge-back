@@ -111,6 +111,13 @@
       <artifactId>spring-cloud-aws-starter-s3</artifactId>
       <version>3.2.0</version>
     </dependency>
+
+    <!-- liquibase - for database migration -->
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+    </dependency>
+
   </dependencies>
   
   <!-- Build added -->
@@ -119,6 +126,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+              <groupId>org.liquibase</groupId>
+              <artifactId>liquibase-maven-plugin</artifactId>
+              <version>4.33.0</version>
+              <configuration>
+                <changeLogFile>src/main/resources/db.changelog/db.changelog-master.xml</changeLogFile>
+                <url>jdbc:mysql://localhost:3306/vod_database</url>
+                <username>root</username>
+                <password>root</password>
+              </configuration>
             </plugin>
         </plugins>
     </build>
