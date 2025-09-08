@@ -56,7 +56,7 @@ public class UserRestController {
         try {
             User user = userService.findByEmail(email);
             if (user != null) {
-                UserDTO userDTO = UserDTO.fromEntity(user);
+                UserDTO userDTO = UserDTO.userFromEntity(user);
                 return ResponseEntity.ok(userDTO);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");

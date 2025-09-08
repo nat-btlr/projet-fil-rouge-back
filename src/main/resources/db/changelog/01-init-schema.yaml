@@ -1,0 +1,227 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: natalya_sugrobova
+      changes:
+        - createTable:
+            ifNotExists: true
+            tableName: categories
+            columns:
+              - column:
+                  name: id_category
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name_category
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: 2
+      author: natalya_sugrobova
+      changes:
+        - createTable:
+            ifNotExists: true
+            tableName: subcategories
+            columns:
+              - column:
+                  name: id_subcategory
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name_subcategory
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: id_category
+                  type: INT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 3
+      author: natalya_sugrobova
+      changes:
+        - createTable:
+            ifNotExists: true
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: psw
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: gender
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: 4
+      author: natalya_sugrobova
+      changes:
+        - createTable:
+            ifNotExists: true
+            tableName: videos
+            columns:
+              - column:
+                  name: id_video
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: description
+                  type: VARCHAR(500)
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: url
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 5
+      author: natalya_sugrobova
+      changes:
+        - createTable:
+            ifNotExists: true
+            tableName: likes
+            columns:
+              - column:
+                  name: id_like
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: id_user
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: id_video
+                  type: INT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 6
+      author: natalya_sugrobova
+      changes:
+        - createTable:
+            ifNotExists: true
+            tableName: native
+            columns:
+              - column:
+                  name: next_val
+                  type: BIGINT
+
+  - changeSet:
+      id: 7
+      author: natalya_sugrobova
+      changes:
+        - addUniqueConstraint:
+            tableName: likes
+            columnNames: id_user,id_video
+            constraintName: UK_likes_user_video
+
+  - changeSet:
+      id: 8
+      author: natalya_sugrobova
+      changes:
+        - createIndex:
+            tableName: likes
+            columns:
+              - column:
+                  name: id_video
+            indexName: IDX_likes_id_video
+
+  - changeSet:
+      id: 9
+      author: natalya_sugrobova
+      changes:
+        - createIndex:
+            tableName: subcategories
+            columns:
+              - column:
+                  name: id_category
+            indexName: IDX_subcategories_id_category
+
+  - changeSet:
+      id: 10
+      author: natalya_sugrobova
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: subcategories
+            baseColumnNames: id_category
+            referencedTableName: categories
+            referencedColumnNames: id_category
+            constraintName: FK_subcategories_categories
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+
+  - changeSet:
+      id: 11
+      author: natalya_sugrobova
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: likes
+            baseColumnNames: id_user
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: FK_likes_users
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+
+  - changeSet:
+      id: 12
+      author: natalya_sugrobova
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: likes
+            baseColumnNames: id_video
+            referencedTableName: videos
+            referencedColumnNames: id_video
+            constraintName: FK_likes_videos
+            onDelete: RESTRICT
+            onUpdate: RESTRICT

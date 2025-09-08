@@ -1,7 +1,5 @@
 package fr.filrougeback.dto;
 
-import java.util.List;
-
 import fr.filrougeback.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +18,7 @@ public class UserDTO {
 	// For liked videos
 	List<LikeDTO> likeDTO;
 	*/
-	public static UserDTO fromEntity(User user) {
+	public static UserDTO userFromEntity(User user) {
         return new UserDTO(user.getEmail(), user.getUsername());
     }
 }
