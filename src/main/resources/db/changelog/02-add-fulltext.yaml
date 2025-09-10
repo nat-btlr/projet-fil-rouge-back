@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 14
+      author: natalya_sugrobova
+      preConditions:
+        - onFail: CONTINUE
+        - indexExists:
+            tableName: videos
+            indexName: IDX_videos_fulltext
+      changes:
+        - dropIndex:
+            indexName: IDX_videos_fulltext
+            tableName: videos
+        - sql:
+            sql: |
+              ALTER TABLE videos
+              ADD FULLTEXT IDX_videos_fulltext(title, description);

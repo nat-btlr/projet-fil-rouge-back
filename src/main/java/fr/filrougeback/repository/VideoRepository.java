@@ -3,6 +3,7 @@ package fr.filrougeback.repository;
 import fr.filrougeback.model.Video;
 import fr.filrougeback.model.VideoCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,4 +15,10 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
 	List<Video> findByCategory(VideoCategory category);
 
 	boolean existsByUrl(String url);
+
+	@Query(value = "SELECT * FROM videos " +
+			"WHERE MATCH(title, description) " +
+			"AGAINST (?1 IN NATURAL LANGUAGE MODE)",
+			nativeQuery = true)
+	List<Video> searchByKeyword(String keyword);
 }

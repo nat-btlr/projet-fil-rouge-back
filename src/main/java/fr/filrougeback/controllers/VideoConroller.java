@@ -33,4 +33,9 @@ public class VideoConroller {
                     Arrays.toString(VideoCategory.values()));
         }
     }
+
+    @GetMapping("public/search")
+    public List<VideoDTO> search(@RequestParam String query) {
+        return videoService.searchVideos(query);
+    }
 }
