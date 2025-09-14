@@ -79,4 +79,10 @@ public class VideoService {
 		List<Video> videos = videoRepository.findByCategory(category);
 		return VideoDTO.toDtoList(videos);
 	}
+
+	// Searching videos by keywords
+	public List<VideoDTO> searchVideos(String keyword) {
+		List<Video> videos = videoRepository.searchByKeyword(keyword);
+		return VideoDTO.toDtoList(videos);
+	}
 }
