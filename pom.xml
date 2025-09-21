@@ -5,7 +5,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
   <groupId>fr</groupId>
@@ -16,6 +16,10 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <liquibase.url>jdbc:mysql://localhost:3306/vod_database</liquibase.url>
+    <liquibase.username>root</liquibase.username>
+    <liquibase.password>root</liquibase.password>
+    <liquibase.changeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</liquibase.changeLogFile>
   </properties>
 
   <dependencies>
@@ -117,28 +121,64 @@
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
     </dependency>
-
   </dependencies>
   
   <!-- Build added -->
   <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
 
-            <plugin>
-              <groupId>org.liquibase</groupId>
-              <artifactId>liquibase-maven-plugin</artifactId>
-              <version>4.33.0</version>
-              <configuration>
-                <changeLogFile>src/main/resources/db.changelog/db.changelog-master.xml</changeLogFile>
-                <url>jdbc:mysql://localhost:3306/vod_database</url>
-                <username>root</username>
-                <password>root</password>
-              </configuration>
-            </plugin>
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>4.33.0</version>
+        <configuration>
+          <!-- ИЗМЕНЕНО: Используем свойства вместо hardcoded значений -->
+          <changeLogFile>${liquibase.changeLogFile}</changeLogFile>
+          <url>${liquibase.url}</url>
+          <username>${liquibase.username}</username>
+          <password>${liquibase.password}</password>
+          <!-- УДАЛЕНО: hardcoded значения -->
+          <!-- <url>jdbc:mysql://${env.MYSQLHOST}:${env.MYSQLPORT}/${env.MYSQLDATABASE}</url> -->
+          <!-- <username>${env.MYSQLUSER}</username> -->
+          <!-- <password>${env.MYSQLPASSWORD}</password> -->
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>local</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <liquibase.url>jdbc:mysql://localhost:3306/vod_database</liquibase.url>
+        <liquibase.username>root</liquibase.username>
+        <liquibase.password>root</liquibase.password>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>railway</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>disable-liquibase</id>
+                <phase>none</phase>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
-    </build>
+      </build>
+    </profile>
+  </profiles>
 </project>
