@@ -17,7 +17,7 @@ public class VideoConroller {
     @Autowired
     VideoService videoService;
 
-    @GetMapping("/public/getvideos")
+    @GetMapping("/api/getvideos")
     public ResponseEntity<?> getVideos(@RequestParam String category) {
         try {
             VideoCategory videoCategory = VideoCategory.valueOf(category.toUpperCase());
@@ -34,7 +34,7 @@ public class VideoConroller {
         }
     }
 
-    @GetMapping("public/search")
+    @GetMapping("api/search")
     public List<VideoDTO> search(@RequestParam String query) {
         return videoService.searchVideos(query);
     }
