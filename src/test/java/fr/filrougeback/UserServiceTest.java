@@ -23,7 +23,7 @@ public class UserServiceTest {
 
 @Test
 public void testGetUserById() {
-	when(userRepository.findByEmailAndPassword("lili@lolo.fr", "lisalisalisa"))
+	when(userRepository.findByEmail("lili@lolo.fr"))
 	.thenReturn(mockUser);
 
 	User result = userService.get("lili@lolo.fr", "lisalisalisa");

@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3-add-role-to-users
+      author: github-copilot
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: role
+                  type: VARCHAR(10)
+                  defaultValue: MEMBER

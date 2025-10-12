@@ -38,7 +38,6 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/*.mp4").permitAll()
                         .anyRequest().authenticated()

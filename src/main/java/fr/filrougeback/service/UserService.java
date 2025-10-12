@@ -5,6 +5,7 @@ import fr.filrougeback.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class UserService {
@@ -12,16 +13,26 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User get(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password);
+        @Autowired
+        private PasswordEncoder passwordEncoder;
+
+
+    public User get(String email, String rawPassword) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && passwordEncoder.matches(rawPassword, user.getPassword())) {
+            return user;
+        }
+        return null;
     }
 
-    public User createUser(String username, String password, String email, String gender) {
+
+    public User createUser(String username, String rawPassword, String email, String gender) {
         User user = new User();
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(rawPassword));
         user.setUsername(username);
         user.setGender(gender);
+        user.setRole("MEMBER");
         return userRepository.save(user);
     }
 
@@ -37,31 +48,23 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-    
+
     @Transactional
     public User updateUser(User user, String newUsername, String newPassword, String newEmail) {
         if (user != null) {
-        	System.out.println("User not null");
-        	System.out.println(user);
-        	System.out.println(user);
-        	
             if (newUsername != null && !newUsername.isBlank()) {
                 user.setUsername(newUsername);
-                System.out.println("username updated" + newUsername);
             }
             if (newPassword != null && !newPassword.isBlank()) {
-                user.setPassword(newPassword);
+                user.setPassword(passwordEncoder.encode(newPassword));
             }
             if (newEmail != null && !newEmail.isBlank()) {
                 user.setEmail(newEmail);
             }
-
             return userRepository.save(user);
         } else {
-        	System.out.println("User null");
-        	return null;
+            return null;
         }
-        
     }
 
 

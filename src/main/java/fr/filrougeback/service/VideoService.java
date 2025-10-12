@@ -36,7 +36,7 @@ public class VideoService {
 
 	public void importVideosFromCsv(InputStream csvFile) throws IOException {
 		try (Reader reader = new InputStreamReader(csvFile);
-			 CSVParser csvParser = new CSVParser(reader, CSVFormat.TDF.withFirstRecordAsHeader())) {
+			 CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter(';').withFirstRecordAsHeader())) {
 
 			for (CSVRecord record : csvParser) {
 				String fileName = record.get("file_name");

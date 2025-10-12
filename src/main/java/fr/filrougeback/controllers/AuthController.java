@@ -3,8 +3,6 @@ package fr.filrougeback.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +16,7 @@ import fr.filrougeback.dto.RestAPIResponse;
 import fr.filrougeback.exceptions.UserDoesNotExistException;
 import fr.filrougeback.model.User;
 import fr.filrougeback.service.UserService;
+import fr.filrougeback.security.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -27,30 +26,20 @@ public class AuthController {
 	@Autowired
 	UserService userService;
 
-	@PostMapping("/public/login")
-	public ResponseEntity<Object> login(@RequestBody AuthenticationForm loginRequest, 
-	                                    HttpServletResponse response) {
-	    Authentication authenticationRequest = new UsernamePasswordAuthenticationToken(
-	        loginRequest.getEmail(), loginRequest.getPassword()
-	    );
+    @Autowired
+    JwtService jwtService;
 
-	    System.out.println("Authentification: " + loginRequest.getEmail() + " / " + loginRequest.getPassword());
-	    
-	    User user = userService.get(loginRequest.getEmail(), loginRequest.getPassword());
-	    
-	    if (user != null) {
-	        String token = user.hashCode() + "" + System.currentTimeMillis();
-
-	        Cookie cookie = new Cookie("auth-token-vod", token);
-	        cookie.setHttpOnly(true);
-	        cookie.setSecure(true);
-	        response.addCookie(cookie);
-
-	        return ResponseEntity.ok(new AuthenticationResponse(token, user.getUsername(), user.getEmail()));
-	    } else {
-	        throw new UserDoesNotExistException("Pas d'utilisateur avec cet email en base");
-	    }
-	}
+    @PostMapping("/public/login")
+    public ResponseEntity<Object> login(@RequestBody AuthenticationForm loginRequest, 
+                                        HttpServletResponse response) {
+        User user = userService.get(loginRequest.getEmail(), loginRequest.getPassword());
+        if (user != null) {
+            String token = jwtService.generateToken(user.getUsername(), user.getRole());
+            return ResponseEntity.ok(new AuthenticationResponse(user.getId(), token, user.getUsername(), user.getEmail(), user.getRole()));
+        } else {
+            throw new UserDoesNotExistException("Pas d'utilisateur avec cet email en base");
+        }
+    }
     
     @PostMapping(value="/public/subscribe", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RestAPIResponse> subscribe(@RequestBody SubscribeForm subscribeForm) throws Exception {
@@ -72,7 +61,7 @@ public class AuthController {
         }
     }
     
-    @PostMapping("/public/logout")
+    @PostMapping("/api/logout")
     public ResponseEntity<Void> logout(HttpServletResponse response) {
     	// Deleting the cookie for logout
         Cookie cookie = new Cookie("auth-token-vod", "");

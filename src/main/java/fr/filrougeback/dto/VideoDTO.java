@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @Getter
 @AllArgsConstructor
 public class VideoDTO {
+    private int id;
     private String title;
     private String description;
     private String url;
@@ -19,6 +20,7 @@ public class VideoDTO {
     // Tranforming one entity of type Video to VideoDTO
     public static VideoDTO fromEntity(Video video) {
         return new VideoDTO(
+                video.getIdVideo(),
                 video.getTitle(),
                 video.getDescription(),
                 video.getUrl(),

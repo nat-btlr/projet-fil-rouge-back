@@ -1,5 +1,40 @@
-file_name	title	description	category
-video1_pregnancy.mp4	video1	Temporary text pregnancy 1	HEALTH
-video2_baby.mp4	video2	Temporary text baby 2	ECOLOGY
-video3_healthy_eating.mp4	video3	Temporary text healthy eating 3	HEALTH
-video4_yoga.mp4	video4	Temporary text yoga 4	PREPARATION
+file_name;title;description;category
+video1_candles.mp4;Ambiance apaisante;Créez une atmosphère douce et relaxante avec des bougies naturelles, idéales pour vos moments de détente et de méditation pendant la grossesse. ;ECOLOGY
+video1_cream1.mp4;Soin doux pour la peau;Découvrez comment choisir et appliquer une crème adaptée pour nourrir et protéger la peau des futures mamans au quotidien. ;COSMETICS
+video1_ultrasound1.mp4;Première échographie;Revivez la magie du premier regard sur bébé et comprenez l’importance de ce moment dans le suivi de la grossesse. ;HEALTH
+video1_white_top.mp4;Tenue confortable;Des idées de tenues simples, légères et élégantes pour se sentir belle et à l’aise à chaque étape de la grossesse. ;PREPARATION
+video2_kitty.mp4;Pause tendresse;Un moment de douceur et de calme en compagnie d’un chat — parfait pour réduire le stress et retrouver la sérénité. ;ECOLOGY
+video2_notes1.mp4;Carnet de grossesse;Apprenez à créer un joli carnet pour noter vos pensées, vos émotions et vos projets de future maman. ;PREPARATION
+video2_oil.mp4;Huiles naturelles;Découvrez les bienfaits des huiles végétales pour apaiser, nourrir et embellir la peau pendant la grossesse. ;COSMETICS
+video2_ultrasound2.mp4;Suivi médical;L’échographie, un rendez-vous précieux pour suivre la croissance de bébé et renforcer le lien avec lui. ;HEALTH
+video3_drinking_milk.mp4;Un verre de douceur;Pourquoi le lait et ses dérivés peuvent être des alliés précieux pour la santé de la maman et du bébé. ;HEALTH
+video3_manicure.mp4;Beauté des mains;Prenez soin de vos mains et ongles avec des produits doux, sans danger pour la grossesse. ;COSMETICS
+video3_measurement.mp4;Suivi de la croissance;Découvrez comment les professionnels mesurent et suivent l’évolution de bébé mois après mois. ;PREPARATION
+video3_shopping.mp4;Achats écoresponsables;Faites vos courses en conscience : des astuces pour choisir des produits bons pour vous et pour la planète. ;ECOLOGY
+video4_cream2.mp4;Hydratation essentielle;Apprenez à garder votre peau souple et lumineuse avec des soins naturels et bien adaptés à la maternité. ;COSMETICS
+video4_husband.mp4;En couple vers la naissance;La grossesse se vit à deux : découvrez comment renforcer la complicité et le soutien du couple. ;PREPARATION
+video4_water.mp4;L’eau, source de vie;Rappel des bienfaits essentiels de l’hydratation et des petits gestes pour boire plus facilement chaque jour. ;ECOLOGY
+video4_yoga1.mp4;Yoga détente;Une séance douce pour calmer le mental, étirer le corps et se reconnecter à soi-même et à son bébé. ;HEALTH
+video5_cotton.mp4;Textiles naturels;Pourquoi privilégier le coton biologique pour votre confort et celui de votre bébé. ;ECOLOGY
+video5_packing.mp4;Valise de maternité;Découvrez la liste complète et bien pensée pour préparer votre valise avant le grand jour. ;PREPARATION
+video5_serum.mp4;Sérum éclat;Un soin léger et naturel pour garder une peau éclatante et bien hydratée tout au long de la grossesse. ;COSMETICS
+video5_ultrasound3.mp4;Échographie de suivi;Un aperçu émouvant du développement de bébé, étape après étape. ;HEALTH
+video6_cosmetics.mp4;Routine beauté;Une routine simple, sûre et efficace pour se sentir belle et rayonnante pendant la maternité. ;COSMETICS
+video6_mother_baby.mp4;Lien précieux;Découvrez la puissance du contact peau à peau et la beauté de la relation mère-enfant. ;ECOLOGY
+video6_stomach_touching.mp4;Écouter son corps;Un moment d’intimité pour ressentir les mouvements de bébé et se connecter à son énergie. ;PREPARATION
+video6_ultrasound4.mp4;Suivi du développement;Une échographie apaisante pour observer la croissance et la vitalité de votre bébé. ;HEALTH
+video7_in_vitro.mp4;Espoir et science;Un regard bienveillant sur le parcours de la fécondation in vitro et les émotions qu’il suscite. ;ECOLOGY
+video7_ultrasound5.mp4;Derniers contrôles;Les dernières échographies avant la naissance, un moment plein d’émotion et d’attente. ;HEALTH
+video7_wellbeing.mp4;Bien-être au quotidien;Quelques gestes simples pour entretenir sa beauté naturelle et sa sérénité intérieure. ;COSMETICS
+video7_yoga_ball.mp4;Yoga avec ballon;Des exercices ludiques et doux pour renforcer le corps et détendre le dos pendant la grossesse. ;PREPARATION
+video8_baby_and_mom.mp4;Moments tendres;Un instant plein d’amour entre maman et bébé, symbole du lien unique qui les unit. ;HEALTH
+video8_baby_cream.mp4;Crème douce bébé;Apprenez à choisir des soins sûrs et naturels pour protéger la peau délicate du nouveau-né. ;COSMETICS
+video8_notes2.mp4;Journal de grossesse;Gardez une trace de vos émotions, de vos découvertes et des petits bonheurs du quotidien. ;PREPARATION
+video9_room_preparation.mp4;Chambre de bébé;Des idées pour aménager un espace paisible, sûr et harmonieux pour accueillir bébé. ;PREPARATION
+video9_yoga2.mp4;Yoga maternité;Une séance adaptée pour soulager le dos, respirer profondément et cultiver la sérénité. ;HEALTH
+video10_stretching.mp4;Étirements doux;Des mouvements simples pour détendre les muscles et améliorer la circulation. ;PREPARATION
+video10_yoga_stretching.mp4;Souplesse et sérénité;Combinez yoga et étirements pour retrouver équilibre, énergie et apaisement. ;HEALTH
+video11_training_preparation1.mp4;Préparation physique 1;Commencez en douceur votre routine d’exercices pour rester active et confiante. ;PREPARATION
+video12_training_preparation2.mp4;Préparation physique 2;Renforcez votre corps avec des mouvements adaptés à votre rythme. ;PREPARATION
+video13_training_preparation3.mp4;Préparation physique 3;Apprenez à bouger avec fluidité et à respirer en harmonie avec bébé. ;PREPARATION
+video14_training_preparation4.mp4;Préparation physique 4;Des exercices pour se sentir prête, détendue et pleine d’énergie avant l’accouchement. ;PREPARATION
