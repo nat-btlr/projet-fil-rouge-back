@@ -22,7 +22,7 @@ public class User {
 	@NotNull(message = "The email is obligatory")
 	String email;
 	
-	@Column(name="psw")
+	@Column(name="psw", nullable = false)
 	@Size
 	String password;
 	
