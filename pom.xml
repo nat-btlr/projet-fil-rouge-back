@@ -136,15 +136,10 @@
         <artifactId>liquibase-maven-plugin</artifactId>
         <version>4.33.0</version>
         <configuration>
-          <!-- ИЗМЕНЕНО: Используем свойства вместо hardcoded значений -->
           <changeLogFile>${liquibase.changeLogFile}</changeLogFile>
           <url>${liquibase.url}</url>
           <username>${liquibase.username}</username>
           <password>${liquibase.password}</password>
-          <!-- УДАЛЕНО: hardcoded значения -->
-          <!-- <url>jdbc:mysql://${env.MYSQLHOST}:${env.MYSQLPORT}/${env.MYSQLDATABASE}</url> -->
-          <!-- <username>${env.MYSQLUSER}</username> -->
-          <!-- <password>${env.MYSQLPASSWORD}</password> -->
         </configuration>
       </plugin>
     </plugins>
