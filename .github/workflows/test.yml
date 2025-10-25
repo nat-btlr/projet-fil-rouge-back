@@ -18,5 +18,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Compile
+        run: mvn compile
+
       - name: Build and test with Maven
         run: mvn clean test
