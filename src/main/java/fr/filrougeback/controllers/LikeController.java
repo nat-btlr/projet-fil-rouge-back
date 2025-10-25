@@ -1,14 +1,11 @@
 package fr.filrougeback.controllers;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import fr.filrougeback.dto.LikeDTO;
 import fr.filrougeback.service.LikeService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/likes")
@@ -30,8 +27,24 @@ public class LikeController {
 	}
 	
 	@GetMapping("/{videoId}")
-	public ResponseEntity<Long> getLikeCount(@PathVariable Integer videoId) {
+	public ResponseEntity<?> getLikeCount(
+		@PathVariable Integer videoId,
+		@RequestParam(required = false) Integer userId
+	) {
 		long count = likeService.countLikes(videoId);
-		return ResponseEntity.ok(count);
+		boolean liked = false;
+		if (userId != null) {
+			liked = likeService.isLikedByUser(userId, videoId);
+		}
+		return ResponseEntity.ok(Map.of("count", count, "liked", liked));
+	}
+
+	@DeleteMapping
+	public ResponseEntity<String> removeLike(@RequestBody LikeDTO likeDTO) {
+    boolean removed = likeService.removeLike(likeDTO.getUserId(), likeDTO.getVideoId());
+    if (removed) {
+        return ResponseEntity.ok("Like removed successfully");
+    }
+    return ResponseEntity.badRequest().body("Like not found");
 	}
 }
