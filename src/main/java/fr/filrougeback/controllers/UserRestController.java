@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import java.util.List;
+import java.util.ArrayList;
 
 import fr.filrougeback.dto.RestAPIResponse;
 import fr.filrougeback.dto.UpdateUserForm;
@@ -17,7 +20,6 @@ import fr.filrougeback.service.UserService;
 
 @RestController
 public class UserRestController {
-
     @Autowired 
     private UserService userService;
 
@@ -66,4 +68,63 @@ public class UserRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
         }
     }
+
+
+    @GetMapping("/api/users")
+    public ResponseEntity<?> getAllUsers() {
+        Iterable<User> users = userService.getAllUsers();
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for (User user : users) {
+            userDTOs.add(UserDTO.userFromEntity(user));
+        }
+        return ResponseEntity.ok(userDTOs);
+    }
+/* 
+    @GetMapping("/api/user/by-username")
+    public ResponseEntity<?> getUserByUsername(@RequestParam String username) {
+        User user = userService.findByUsername(username);
+        if (user != null) {
+            return ResponseEntity.ok(UserDTO.userFromEntity(user));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+    }
+
+    @GetMapping("/api/user/by-email")
+    public ResponseEntity<?> getUserByEmail(@RequestParam String email) {
+        User user = userService.findByEmail(email);
+        if (user != null) {
+            return ResponseEntity.ok(UserDTO.userFromEntity(user));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+    }
+*/
+    @DeleteMapping("/api/user/{id}")
+    public ResponseEntity<RestAPIResponse> deleteUserById(@org.springframework.web.bind.annotation.PathVariable Integer id) {
+        try {
+            userService.deleteUserById(id);
+            return ResponseEntity.ok(new RestAPIResponse(200, "User deleted successfully"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.status(500).body(new RestAPIResponse(500, "Internal Server Error"));
+        }
+    }
+
+    @GetMapping("/api/user/search")
+    public ResponseEntity<?> searchUser(@RequestParam(required = false) String email,
+                                        @RequestParam(required = false) String username) {
+        User user = null;
+        if (email != null && !email.isBlank()) {
+            user = userService.findByEmail(email);
+        } else if (username != null && !username.isBlank()) {
+            user = userService.findByUsername(username);
+        }
+        if (user != null) {
+            return ResponseEntity.ok(UserDTO.userFromEntity(user));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+    }
+
 }
