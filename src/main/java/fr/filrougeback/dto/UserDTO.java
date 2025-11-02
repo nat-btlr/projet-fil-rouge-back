@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class UserDTO {
+    private Integer id;
     private String email;
     private String username;
 	public static UserDTO userFromEntity(User user) {
-        return new UserDTO(user.getEmail(), user.getUsername());
+        return new UserDTO(user.getId(), user.getEmail(), user.getUsername());
     }
 }

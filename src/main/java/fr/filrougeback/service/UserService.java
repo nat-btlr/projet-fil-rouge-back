@@ -67,6 +67,17 @@ public class UserService {
         }
     }
 
+        public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteUserById(Integer id) {
+        userRepository.deleteById(id);
+    }
 
 }
