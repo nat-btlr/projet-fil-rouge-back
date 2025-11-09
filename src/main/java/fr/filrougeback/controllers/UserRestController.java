@@ -79,27 +79,7 @@ public class UserRestController {
         }
         return ResponseEntity.ok(userDTOs);
     }
-/* 
-    @GetMapping("/api/user/by-username")
-    public ResponseEntity<?> getUserByUsername(@RequestParam String username) {
-        User user = userService.findByUsername(username);
-        if (user != null) {
-            return ResponseEntity.ok(UserDTO.userFromEntity(user));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
-        }
-    }
 
-    @GetMapping("/api/user/by-email")
-    public ResponseEntity<?> getUserByEmail(@RequestParam String email) {
-        User user = userService.findByEmail(email);
-        if (user != null) {
-            return ResponseEntity.ok(UserDTO.userFromEntity(user));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
-        }
-    }
-*/
     @DeleteMapping("/api/user/{id}")
     public ResponseEntity<RestAPIResponse> deleteUserById(@org.springframework.web.bind.annotation.PathVariable Integer id) {
         try {

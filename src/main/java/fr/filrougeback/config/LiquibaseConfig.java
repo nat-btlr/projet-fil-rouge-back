@@ -14,12 +14,12 @@ public class LiquibaseConfig {
     public static class LiquibaseDelayRunner {
         public LiquibaseDelayRunner() {
             try {
-                System.out.println("⏳ Waiting for MySQL to be ready...");
+                System.out.println("Waiting for MySQL to be ready...");
                 Thread.sleep(20000);
-                System.out.println("✅ MySQL should be ready now, starting Liquibase...");
+                System.out.println("MySQL should be ready now, starting Liquibase...");
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.out.println("❌ Liquibase delay was interrupted");
+                System.out.println("Liquibase delay was interrupted");
             }
         }
     }

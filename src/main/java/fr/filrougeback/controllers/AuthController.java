@@ -17,8 +17,6 @@ import fr.filrougeback.exceptions.UserDoesNotExistException;
 import fr.filrougeback.model.User;
 import fr.filrougeback.service.UserService;
 import fr.filrougeback.security.JwtService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 public class AuthController {
@@ -30,8 +28,7 @@ public class AuthController {
     JwtService jwtService;
 
     @PostMapping("/public/login")
-    public ResponseEntity<Object> login(@RequestBody AuthenticationForm loginRequest, 
-                                        HttpServletResponse response) {
+    public ResponseEntity<Object> login(@RequestBody AuthenticationForm loginRequest) {
         User user = userService.get(loginRequest.getEmail(), loginRequest.getPassword());
         if (user != null) {
             String token = jwtService.generateToken(user.getUsername(), user.getRole());
@@ -62,17 +59,9 @@ public class AuthController {
     }
     
     @PostMapping("/api/logout")
-    public ResponseEntity<Void> logout(HttpServletResponse response) {
-    	// Deleting the cookie for logout
-        Cookie cookie = new Cookie("auth-token-vod", "");
-        cookie.setMaxAge(0); // Deleting the cookie
-        cookie.setHttpOnly(true);
-        cookie.setPath("/"); // Deleting cookie on the website
-        response.addCookie(cookie);
-
-        return ResponseEntity.ok().build();
-    }
-    
+    public ResponseEntity<RestAPIResponse> logout() {
+     return ResponseEntity.ok(new RestAPIResponse(200, "Logged out."));
+   }
     
     @DeleteMapping("/api/deleteaccount")
     public ResponseEntity<RestAPIResponse> deleteAccount(@RequestParam String email) {
